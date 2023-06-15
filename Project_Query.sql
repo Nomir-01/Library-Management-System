@@ -1,0 +1,372 @@
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Tables Creation :
+
+--create table Publisher
+--(
+--PublisherID int Primary Key,
+--PName varchar(50) Not Null
+--)
+--create table Books
+--(
+--ISBN int Primary Key,
+--BName varchar(50) Not Null,
+--BGenre varchar(20) Not Null,
+--BEdition nvarchar(20) Not Null,
+--BPrice int Not Null,
+--BQuantity int Not Null,
+--PublisherID int foreign key references Publisher(PublisherID) on delete set null
+--)
+--create table Publish_Date
+--(
+--ISBN int foreign key references Books(ISBN),
+--PublisherID int foreign key references Publisher(PublisherID),
+--primary key(ISBN,PublisherID),
+--PubDay int Not Null,
+--PubMonth int Not Null,
+--PubYear int Not Null
+--)
+
+--create table Members
+--(
+--MemberID int Primary Key,
+--MName varchar(50),
+--MEmail nvarchar(50) Not Null,
+--MContact nvarchar(20) Not Null,
+--MAddress nvarchar(50) Not Null,
+--MCNIC nvarchar(20) Not Null,
+--MembershipDate date Not Null,
+--)
+--create table Issue_Card
+--(
+--ISBN int foreign key references Books(ISBN),
+--MemberID int foreign key references Members(MemberID),
+--MIssueDate date Not Null,
+--MReturnDate date Not Null,
+--MLateFeePerDay int Not Null,
+--MLateDays int,
+--MStatus nvarchar(20),
+--primary key(ISBN,MemberID,MIssueDate)
+--)
+--create table Purchase_Card
+--(
+--ISBN int foreign key references Books(ISBN),
+--MemberID int foreign key references Members(MemberID),
+--MPurchaseDate date Not Null,
+--MPrice int Not Null,
+--MQuantity int Not Null,
+--primary key(ISBN,MemberID,MPurchaseDate)
+--)
+
+--create table Non_Members
+--(
+--NMCNIC nvarchar(20) Primary Key,
+--NMName varchar(50),
+--NMEmail nvarchar(50) Not Null,
+--NMContact nvarchar(20) Not Null,
+--NMAddress nvarchar(50) Not Null,
+--ISBN int foreign key references Books(ISBN) on delete set null
+--)
+--create table Rent
+--(
+--ISBN int foreign key references Books(ISBN),
+--NMCNIC nvarchar(20) foreign key references Non_Members(NMCNIC),
+--NMRentDate date Not Null,
+--NMReturnDate date Not Null,
+--NMLateFeePerDay int Not Null,
+--NMLateDays int,
+--NMStatus nvarchar(20),
+--primary key(ISBN,NMCNIC,NMRentDate)
+--)
+
+--create table Staff
+--(
+--StaffID int Primary Key,
+--SName varchar(50) Not Null,
+--SContact nvarchar(20) Not Null,
+--SAddress nvarchar(50) Not Null,
+--Salary int Not Null
+--)
+--create table Maintenance
+--(
+--StaffID int foreign key references Staff(StaffID),
+--ISBN int foreign key references Books(ISBN),
+--primary key(StaffID,ISBN)
+--)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Views Creation :
+--GO
+--create view BookCatalog (Publisher_ID,Name,ISBN,Book_Name,Genre,Edition,Price,Quantity,Publish_Day,Publish_Month,Publish_Year) as
+--select
+--Publisher.PublisherID,Publisher.PName,Books.ISBN,Books.BName,Books.BGenre,Books.BEdition,Books.BPrice,Books.BQuantity,Publish_Date.PubDay,Publish_Date.PubMonth,Publish_Date.PubYear
+--from Publisher
+--full join Books
+--on Publisher.PublisherID = Books.PublisherID
+--full join Publish_Date
+--on Books.ISBN = Publish_Date.ISBN
+
+--GO
+--Create view IssueHistory(Member_ID,Name,Email,Contact,CNIC,ISBN,Book_Name,Genre,Edition,Issue_Date,Return_Date,Days_Late,Late_Fee,Status) as
+--select 
+--Members.MemberID,Members.MName,Members.MEmail,Members.MContact,Members.MCNIC,Books.ISBN,Books.BName,Books.BGenre,Books.BEdition,Issue_Card.MIssueDate,Issue_Card.MReturnDate,Issue_Card.MLateDays,Issue_Card.MLateFeePerDay,Issue_Card.MStatus
+--from Members
+--inner join Issue_Card
+--on Members.MemberID = Issue_Card.MemberID
+--inner join Books
+--on Books.ISBN = Issue_Card.ISBN
+
+--GO
+--Create view PurchaseHistory (ID,Name,Email,Contact,CNIC,ISBN,Book_Name,Genre,Edition,Purcahse_Date,Price,Quantity) as
+--select
+--Members.MemberID,Members.MName,Members.MEmail,Members.MContact,Members.MCNIC,Books.ISBN,Books.BName,Books.BGenre,Books.BEdition,Purchase_Card.MPurchaseDate,Purchase_Card.MPrice,Purchase_Card.MQuantity
+--from Members
+--inner join Purchase_Card
+--on Members.MemberID=Purchase_Card.MemberID
+--inner join Books
+--on Books.ISBN = Purchase_Card.ISBN
+
+--GO
+--Create view RentHistory (CNIC,Name,Email,Contact,Address,ISBN,Book_Name,Genre,Edition,Rent_Date,Return_Date,Days_Late,Late_Fee,Status) as
+--select
+--Non_Members.NMCNIC,Non_Members.NMName,Non_Members.NMEmail,Non_Members.NMContact,Non_Members.NMAddress,Books.ISBN,Books.BName,Books.BGenre,Books.BEdition,Rent.NMRentDate,Rent.NMReturnDate,Rent.NMLateDays,Rent.NMLateFeePerDay,Rent.NMStatus
+--from Non_Members
+--inner join Rent
+--on Non_Members.NMCNIC=Rent.NMCNIC
+--inner join Books
+--on Books.ISBN = Rent.ISBN
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Procedure Creation :
+--Go
+--CREATE procedure count_proc_Members
+--@id int
+--as 
+--begin
+--select COUNT(MemberID)
+--as returnsofbooks
+--from Issue_Card
+--where MStatus='Not Returned' and MemberID=@id
+--end
+
+--Go
+--CREATE procedure count_proc_NonMembers
+--@id nvarchar(20)
+--as 
+--begin
+--select COUNT(NMCNIC)
+--as returnsofbooks
+--from Rent
+--where NMStatus='Not Returned' and NMCNIC=@id
+--end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Tables Display :
+--select * from Books
+--select * from Publisher
+--select * from Publish_Date
+
+--select * from Members
+--select * from Issue_Card
+--select * from Purchase_Card
+
+--select * from Non_Members
+--select * from Rent
+
+--select * from Staff
+--select * from Maintenance
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Views Display:
+--select * from BookCatalog
+--select * from IssueHistory
+--select *  from PurchaseHistory
+--select * from RentHistory
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Procedures Execution:
+--exec count_proc_Members 1
+
+--exec count_proc_NonMembers '42100-6531998-2' 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Droping Tables:
+--drop table Books
+--drop table Publisher
+--drop table Publish_Date
+
+--drop table Members
+--drop table Issue_Card
+--drop table Purchase_Card
+
+--drop table Non_Members
+--drop table Rent
+
+--drop table Staff
+--drop table Maintenance
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Droping Views:
+--drop view BookCatalog
+--drop view IssueHistory
+--drop view PurchaseHistory
+--drop view RentHistory
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Dropping Procedures:
+--drop procedure count_proc_Members
+--drop procedure count_proc_NonMembers
+
+--insert into Publisher(PublisherID,PName)
+--values
+--(1,'William Shakespeare'),
+--(2,'George Orwell'),
+--(3,'J.K. Rowling'),
+--(4,'Virginia Woolf'),
+--(5,'Ernest Hemingway'),
+--(6,'Kurt Vonnegut'),
+--(7,'William Faulkner'),
+--(8,'Ayn Rand')
+
+--insert into Books(ISBN,BName,BGenre,BEdition,BPrice,BQuantity,PublisherID)
+--values
+--(100,'Hamlet','Fiction','1st',2500,4,1),
+--(101,'Macbeth','Fiction','3rd',2000,6,1),
+--(102,'Romeo & Juliet','Fiction','4th',3000,2,1),
+--(103,'Why I Write','Non-Fiction','2nd',1500,4,2),
+--(104,'Politics & The English Language','Non-Fiction','1st',2000,6,2),
+--(105,'A Hanging','Non-Fiction','1st',2500,2,2),
+--(106,'Harry Potter Series','Fiction','1st',5000,3,3),
+--(107,'Ickabog','Fiction','1st',4000,6,3),
+--(108,'Fantastic Beasts & Where To Find Them','Fiction','3rd',2000,3,3),
+--(109,'The Years','Fiction','2nd',1500,2,4),
+--(110,'The Voyage Out','Fiction','4th',2000,1,4),
+--(111,'The Waves','Fiction','3rd',2000,2,4),
+--(112,'A FareWell To The Arms','Fiction','1st',2000,2,5),
+--(113,'In Our Time','Fiction','3rd',3500,5,5),
+--(114,'Men Without Women','Non-Fiction','2nd',3000,3,5),
+--(115,'Cats Cradle','Fiction','1st',2500,2,6),
+--(116,'The Sirens Of Titans','Fiction','1st',2500,3,6),
+--(117,'Bluebeard','Fiction','1st',2500,5,6),
+--(118,'Sanctuary','Fiction','2nd',2000,1,7),
+--(119,'A Fable','Non-Fiction','3rd',1500,3,7),
+--(120,'As I Lay Dying','Non-Fiction','3rd',1000,4,7),
+--(121,'Anthem','Non-Fiction','3rd',2000,2,8),
+--(122,'The Fountainhead','Fiction','2nd',2500,4,8),
+--(123,'Ideal','Non=Fiction','3rd',1500,3,8)
+
+--insert into Publish_Date(ISBN,PublisherID,PubDay,PubMonth,PubYear)
+--values
+--(100,1,4,5,1603),
+--(101,1,2,3,1606),
+--(102,1,12,6,1597),
+--(103,2,14,2,1946),
+--(104,2,20,5,1946),
+--(105,2,2,11,1931),
+--(106,3,21,7,2007),
+--(107,3,10,11,2020),
+--(108,3,1,12,2001),
+--(109,4,20,4,1937),
+--(110,4,26,3,1915),
+--(111,4,8,10,1931),
+--(112,5,10,2,1929),
+--(113,5,20,4,1924),
+--(114,5,3,12,1927),
+--(115,6,4,10,1963),
+--(116,6,8,5,1959),
+--(117,6,20,10,1987),
+--(118,7,15,1,1931),
+--(119,7,6,6,1954),
+--(120,7,1,8,1930),
+--(121,8,2,10,1938),
+--(122,8,25,12,1943),
+--(123,8,7,7,2015)
+
+--insert into Members(MemberID,MName,MEmail,MContact,MAddress,MCNIC,MembershipDate)
+--values
+--(1,'Nomir','nomir@gmail.com','0334-9256885','PECHS Block 2,Karachi,Pakistan','42000-8432398-3','2019-08-01'),
+--(2,'Ali','ali@gmail.com','0300-8206680','Tariq Road,Karachi,Pakistan','42010-0436399-4','2018-10-15'),
+--(3,'Amit','amit@gmail.com','0315-1266584','Garden,Karachi,Pakistan','42005-6122695-2','2020-01-02'),
+--(4,'Maouz','maouz@gmail.com','0333-0254827','PIDC,Karachi,Pakistan','42102-8422200-5','2017-05-20'),
+--(5,'Natiq','natiq@gmail.com','0330-2348942','Bahdurabad,Karachi,Pakistan','42002-7613098-3','2019-12-01'),
+--(6,'Nasir','nasir@gmail.com','0334-0256540','PECHS Block 4,Karachi,Pakistan','42034-1098095-2','2016-08-18'),
+--(7,'Sameer','sameer@gmail.com','0336-8879024','Korangi,Karachi,Pakistan','42020-1638409-1','2020-02-09'),
+--(8,'Zaid','zaid@gmail.com','0300-2506984','Saddar,Karachi,Pakistan','42059-0359837-0','2021-07-14'),
+--(9,'Fawaz','fawaz@gmail.com','0301-0286681','Kharadar,Karachi,Pakistan','42002-7315930-4','2019-05-20'),
+--(10,'Umair','umair@gmail.com','0302-1226783','DHA,Karachi,Pakistan','42001-9156328-2','2018-09-17')
+
+
+--insert into Issue_Card(ISBN,MemberID,MIssueDate,MReturnDate,MLateFeePerDay,MLateDays,MStatus)
+--values
+--(100,3,'2020-04-12','2020-05-12',20,0,'Returned'),
+--(120,2,'2020-05-01','2020-06-01',20,2,'Returned'),
+--(110,1,'2021-11-20','2020-12-20',20,0,'Not Returned'),
+--(123,5,'2021-01-22','2021-02-22',20,4,'Returned'),
+--(101,1,'2021-12-15','2022-01-15',20,0,'Not Returned'),
+--(111,4,'2021-11-01','2021-12-01',20,1,'Returned'),
+--(108,1,'2021-10-30','2021-11-30',20,0,'Not Returned')
+
+--insert into Purchase_Card(ISBN,MemberID,MPurchaseDate,MPrice,MQuantity)
+--values
+--(102,6,'2020-12-12',4000,1),
+--(119,10,'2020-01-14',4000,1),
+--(105,9,'2017-05-04',3500,2),
+--(118,7,'2021-08-01',3500,1),
+--(121,8,'2019-09-16',4500,3)
+
+--insert into Non_Members(NMCNIC,NMName,NMEmail,NMContact,NMAddress,ISBN)
+--values
+--('42000-8332891-3','Asad','asad@gmail.com','0334-3504964','DHA,Karachi,Pakistan',106),
+--('42010-5462320-1','Afnan','afnan@gmail.com','0321-2304149','Landhi,Karachi,Pakistan',116),
+--('42100-6531998-2','Basit','basit@gmail.com','0332-3874831','Tariq Road,Karachi,Pakistan',108),
+--('42110-1792321-4','Ubaid','ubaid@gmail.com','0336-2331412','Shahrah-e-Faisal,Karachi,Pakistan',122),
+--('42001-2836790-0','Yasir','yasit@gmail.com','0345-1892981','PECHS Block 1,Karachi,Pakistan',117)
+
+--insert into Rent(ISBN,NMCNIC,NMRentDate,NMReturnDate,NMLateFeePerDay,NMLateDays,NMStatus)
+--values
+--(106,'42000-8332891-3','2020-12-24','2021-01-24',40,0,'Returned'),
+--(116,'42010-5462320-1','2017-05-06','2017-06-06',40,2,'Returned'),
+--(108,'42100-6531998-2','2021-11-04','2021-12-04',40,0,'Not Returned'),
+--(122,'42110-1792321-4','2019-09-10','2019-10-10',40,1,'Returned'),
+--(117,'42001-2836790-0','2021-11-30','2021-12-30',40,0,'Not Returned')
+
+--insert into Staff(StaffID,SName,SContact,SAddress,Salary)
+--values
+--(1,'Ahmed','0314-4351298','DHA,Karachi,Pakistan',2500),
+--(2,'Uzair','0300-7531985','Saddar,Karachi,Pakistan',2500),
+--(3,'Asfand','0334-2895089','Garden,Karachi,Pakistan',2500),
+--(4,'Muzammil','0324-1020586','Soldier Bazar,Karachi,Pakistan',2500),
+
+--insert into Maintenance(StaffID,ISBN)
+--values
+--(1,100),
+--(1,101),
+--(1,102),
+--(1,103),
+--(1,104),
+--(1,105),
+--(2,106),
+--(2,107),
+--(2,108),
+--(2,109),
+--(2,110),
+--(2,111),
+--(3,112),
+--(3,113),
+--(3,114),
+--(3,115),
+--(3,116),
+--(3,117),
+--(4,118),
+--(4,119),
+--(4,120),
+--(4,121),
+--(4,122),
+--(4,123)

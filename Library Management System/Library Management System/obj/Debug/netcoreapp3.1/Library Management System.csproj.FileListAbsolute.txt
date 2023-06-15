@@ -1,0 +1,37 @@
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\bin\Debug\netcoreapp3.1\Library Management System.exe
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\bin\Debug\netcoreapp3.1\Library Management System.deps.json
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\bin\Debug\netcoreapp3.1\Library Management System.runtimeconfig.json
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\bin\Debug\netcoreapp3.1\Library Management System.runtimeconfig.dev.json
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\bin\Debug\netcoreapp3.1\Library Management System.dll
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\bin\Debug\netcoreapp3.1\Library Management System.pdb
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library Management System.csprojAssemblyReference.cache
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Form1.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library Management System.csproj.GenerateResource.cache
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library Management System.AssemblyInfoInputs.cache
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library Management System.AssemblyInfo.cs
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library Management System.csproj.CoreCompileInputs.cache
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library Management System.dll
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library Management System.pdb
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library Management System.genruntimeconfig.cache
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Books.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Issue.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Members.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Non_Members.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Properties.Resources.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Publish_Date.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Publishers.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Purchase.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Rent.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Staff.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library Management System.csproj.CopyComplete
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Catalog.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Issue_History.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Maintenance.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Purchase_History.resources
+C:\Users\Afzal computers\Desktop\Library Management System\Library Management System\obj\Debug\netcoreapp3.1\Library_Management_System.Rent_History.resources
